@@ -3,14 +3,23 @@ void ArrayList<T>::bubbleSort() {
     numComps = 0;
     numSwaps = 0;
 
+    // for each record ri starting at the beginning
     for (int i = 0; i < this->length - 1; i++) {
-        for (int j = 0; j < this->length - i - 1; j++) {
+
+        // for each record rj starting at the end
+        for (int j = this->length - 1; j > i; j--) {
             numComps++;
-            if (buffer[j] > buffer[j + 1]) {
-                swap(j, j + 1);
+
+            // if r(j+1) and rj not in the correct order
+            if (buffer[j] < buffer[j - 1]) {
+
+                // swap the two
+                swap(j, j - 1);
                 numSwaps++;
             }
         }
+        // increment i
+        // continue while i < n-1
     }
 }
 
@@ -19,17 +28,26 @@ void ArrayList<T>::insertionSort() {
     numComps = 0;
     numSwaps = 0;
 
+    // for each record ri starting at the second record (i = 1)
     for (int i = 1; i < this->length; i++) {
-        int j = i;
+        int j = i; 
 
+        // for each record rj starting with the current record (j = i)
         while (j > 0) {
             numComps++;
+
+            // if r(j-1) and rj are not in the correct order, swap them
             if (buffer[j] < buffer[j - 1]) {
                 swap(j, j - 1);
                 numSwaps++;
             } else {
+
+                // exit while loop early
                 break;
             }
+
+            // decrement j
+            // continue while j > 0
             j--;
         }
     }
@@ -40,18 +58,27 @@ void ArrayList<T>::selectionSort() {
     numComps = 0;
     numSwaps = 0;
 
+    // for each record ri starting at the beginning
     for (int i = 0; i < this->length - 1; i++) {
-        int minIndex = i;
+        int t = i; // t = i
 
-        for (int j = i + 1; j < this->length; j++) {
+        // for each record rj starting at the end
+        for (int j = this->length-1; j > i; j--) {
             numComps++;
-            if (buffer[j] < buffer[minIndex]) {
-                minIndex = j;
+
+            // if rj is a better candidate than rt, update t = j
+            // j++
+            // continue while j > i
+            if (buffer[j] < buffer[t]) {
+                t = j;
             }
         }
 
-        if (minIndex != i) {
-            swap(i, minIndex);
+        // swap ri and rt if i != t
+        // i++
+        // continue while i < n-1
+        if (t != i) {
+            swap(i, t);
             numSwaps++;
         }
     }
